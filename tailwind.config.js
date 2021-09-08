@@ -2,8 +2,13 @@ module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    maxWidth: {
+      4: "4rem",
+      "1/2": "50%",
+      "3/4": "75%",
+    },
     fontSize: {
-      init: '62.5%',
+      init: "62.5%",
       xs: ".75rem",
       sm: ".875rem",
       tiny: ".875rem",

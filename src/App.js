@@ -1,9 +1,9 @@
-import { Loading } from "./Components/Loading";
+import Menu from "./Components/Menu";
 
 function App() {
   return (
     <div>
-      <Loading />
+      <Menu />
     </div>
   );
 }
