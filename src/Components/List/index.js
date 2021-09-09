@@ -1,8 +1,31 @@
 import { ConvertDate } from "../../utils/ConvertDate";
+import { Link, useLocation } from "react-router-dom";
+import { getPatient } from "../../api/Patients";
 import PropTypes from "prop-types";
+import { useEffect } from "react";
+import { usePatientModalContext } from "../../Contexts/PatientModal";
+import { buildActions } from "../../Contexts/PatientModal/BuildActions";
 
 function List({ patients }) {
   const ths = ["Name", "Gender", "Birth", "Actions"];
+  const location = useLocation();
+  const [, dispatch] = usePatientModalContext();
+  const PatientActions = buildActions(dispatch);
+
+  async function handleOpenModal(uuid) {
+    const patient = await getPatient(uuid);
+    PatientActions.SET_PATIENT(patient);
+    PatientActions.SET_OPEN_MODAL();
+  }
+
+  useEffect(() => {
+    const PatientUUID = location.pathname.match(
+      /\b(?!\bPatient\b)[^/].*\b/g
+    )[0];
+    if (PatientUUID) {
+      handleOpenModal(PatientUUID);
+    }
+  }, []);
 
   return (
     <div className="text-4xl overflow-x-scroll md:overflow-x-hidden  w-full">
@@ -29,12 +52,13 @@ function List({ patients }) {
                   {ConvertDate(patient.dob.date)}
                 </td>
                 <td className="text-4xl text-center p-5 border-l-1  border-r-1 border-b-1 border-gray-300">
-                  <a
-                    href="/pastel"
+                  <Link
+                    to={`/Patient/${patient.login.uuid}`}
                     className="text-4xl bg-pink-600 p-2 px-5 h-auto rounded-1xl text-white hover:bg-pink-500"
+                    onClick={() => handleOpenModal(patient.login.uuid)}
                   >
                     View
-                  </a>
+                  </Link>
                 </td>
               </tr>
             ))}

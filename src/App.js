@@ -3,14 +3,17 @@ import Search from "./Components/Search";
 import List from "./Components/List";
 import { useEffect } from "react";
 import { usePatientsContext } from "./Contexts/Patients";
+import { usePatientModalContext } from './Contexts/PatientModal'
 import { buildActions } from "./Contexts/Patients/BuildActions";
 import Loading from "./Components/Loading";
+import Modal from './Components/Modal'
 
 import { getPatients } from "./api/Patients";
 
 function App() {
   const [PatientsState, dispatch] = usePatientsContext();
   const PatientsActions = buildActions(dispatch);
+  const [PatientState] = usePatientModalContext()
 
   async function handleSetPatients() {
     const currentPageToGET = PatientsState.page;
@@ -20,7 +23,8 @@ function App() {
   }
 
   async function handleGetMorePatients() {
-    const currentPageToGET = PatientsState.page + 1;
+    const oldPage = PatientsState.page;
+    const currentPageToGET = oldPage + 1;
     PatientsActions.SET_LOADING_GM();
     const PatientsFromApi = await getPatients(currentPageToGET);
     PatientsActions.SET_PATIENTS(PatientsFromApi);
@@ -33,7 +37,8 @@ function App() {
   }, []);
 
   return (
-    <div className="w-full h-full relative">
+    <div className="w-full h-screen overflow-y-scroll">
+      {PatientState.modalIsOpen && <Modal/>}
       <header>
         <Menu />
       </header>

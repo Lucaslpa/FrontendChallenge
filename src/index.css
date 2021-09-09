@@ -8,7 +8,7 @@
     @apply box-border box-border  font-sans md:font-serif m-0 p-0 text-init;
   }
   body,html {
-     @apply m-0 border-0 w-screen overflow-x-hidden;
+     @apply m-0 border-0 w-screen overflow-hidden relative;
   }
   h1,h2,h3,h4,h5,h6 {
     @apply m-0 p-0; 
