@@ -20,5 +20,10 @@ module.exports = {
     "space-before-function-paren": "off",
     "no-undef": "off",
     "multiline-ternary": "off",
+    "keyword-spacing": "off",
+    "no-sequences": "off",
+    indent: "off",
+    "no-trailing-spaces": "off",
+    "block-spacing": "off",
   },
 };

@@ -1,7 +1,11 @@
 import LoadingSVG from "../../assets/loading.gif";
 
-export const Loading = () => (
-  <div>
-    <img alt="Loading" src={LoadingSVG} />
-  </div>
-);
+function Loading() {
+  return (
+    <div className="w-full ">
+      <img alt="Loading" className='mx-auto' src={LoadingSVG} />
+    </div>
+  );
+}
+
+export default Loading;

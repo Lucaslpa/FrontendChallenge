@@ -2,8 +2,11 @@ import Menu from "./Components/Menu";
 import Search from "./Components/Search";
 import List from "./Components/List";
 import Modal from "./Components/Modal";
+import Loading from "./Components/Loading";
 import { patient } from "./patient";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePatientsContext } from "./Contexts/Patients";
+import { buildActions } from "./Contexts/Patients/BuildActions";
 
 function App() {
   const [openModal, setOpenModal] = useState(false);
@@ -11,6 +14,18 @@ function App() {
   function handleOpenModal() {
     setOpenModal(!openModal);
   }
+  const [patientsState, dispatch] = usePatientsContext();
+  const patientsActions = buildActions(dispatch);
+
+  useEffect(() => {
+    patientsActions.SET_PATIENTS([patient, patient]);
+    patientsActions.SET_LOADING();
+    patientsActions.SET_LOADING();
+  }, []);
+
+  useEffect(() => {
+    console.log(patientsState);
+  }, [patientsState]);
 
   return (
     <div className="w-full h-full relative">
@@ -27,7 +42,11 @@ function App() {
             lacus, malesuada ac neque in, scelerisque lacinia nibh.
           </p>
           <Search />
-          <List patients={[patient, patient, patient, patient, patient]} />
+          {patientsState.loading ? (
+            <Loading />
+          ) : (
+            <List patientsState={patientsState.patients} />
+          )}
           <div className="w-full py-20 flex justify-center p-5">
             {openModal && <Modal />}
             <button
