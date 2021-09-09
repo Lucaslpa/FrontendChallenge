@@ -21,9 +21,9 @@ function List({ patients }) {
   useEffect(() => {
     const PatientUUID = location.pathname.match(
       /\b(?!\bPatient\b)[^/].*\b/g
-    )[0];
+    );
     if (PatientUUID) {
-      handleOpenModal(PatientUUID);
+      handleOpenModal(PatientUUID[0]);
     }
   }, []);
 

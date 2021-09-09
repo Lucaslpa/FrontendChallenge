@@ -3,7 +3,7 @@ import { ConvertDate } from "../../utils/ConvertDate";
 import { usePatientModalContext } from "../../Contexts/PatientModal";
 import { buildActions } from "../../Contexts/PatientModal/BuildActions";
 import Loading from "../Loading";
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Text = ({ children, title }) => (
   <div className="md:text-3xl text-3xl    w-auto md:p-3   p-1 m-5">
@@ -22,8 +22,6 @@ function Modal() {
   const PatientActions = buildActions(dispatch);
 
   const patient = PatientState.patient;
-
-  useEffect(() => console.log(patient, PatientState), [patient]);
 
   if (
     !patient ||
@@ -83,12 +81,13 @@ function Modal() {
             className="rounded-full  transform absolute w-full max-w-10 -translate-y-40 "
             src={patient.picture.large}
           />
-          <button
+          <Link
+            to="/"
             onClick={() => PatientActions.SET_OPEN_MODAL()}
             className="transform right-5 -top-5  p-5 absolute text-white  bg-pink-600 text-3xl hover:bg-pink-500"
           >
             X
-          </button>
+          </Link>
           <div className="h-auto w-auto block rounded-3xl flex flex-wrap">
             <h2 className="md:text-4xl text-4xl text-3xl w-full text-center my-5 md:my-7">
               {`${patient.name.first} ${patient.name.last}`}

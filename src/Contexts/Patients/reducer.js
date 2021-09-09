@@ -4,7 +4,7 @@ import * as actionTypes from "./actionTypes";
 export const reducer = (state, action) => {
   switch (action.type) {
     case actionTypes.SET_PATIENTS:
-      const patients = [...state.patients, ...action.payload];
+      const patients = action.payload;
       return { ...state, patients };
     case actionTypes.SET_LOADING:
       return { ...state, loading: !state.loading };

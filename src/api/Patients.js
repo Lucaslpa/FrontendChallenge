@@ -9,8 +9,6 @@ export async function getPatients(page) {
 }
 
 export async function getPatient(PatientUUID) {
-  console.log(PatientUUID);
-
   let page = 1;
   let Patient = null;
   while (!Patient && page < 6) {
@@ -24,4 +22,40 @@ export async function getPatient(PatientUUID) {
     Patient = filtredPatient[0];
   }
   return Patient;
+}
+export async function getPatientByGender(Patients) {
+  const filtredPatients = Patients.filter(
+    (patient) => patient.gender === gender
+  );
+
+  return filtredPatients;
+}
+
+function verifySearch(search, patient) {
+  const searchToLowerCase = search.toLowerCase();
+  const verifyNationality =
+    patient.location.country.toLowerCase() === searchToLowerCase;
+  const verifyFirstName =
+    patient.name.first.toLowerCase() === searchToLowerCase;
+  const verifyLastName = patient.name.last.toLowerCase() === searchToLowerCase;
+
+  if (verifyFirstName || verifyLastName || verifyNationality) {
+    return true;
+  }
+}
+
+export async function getPatientByNationalityOrName(search) {
+  let page = 1;
+  const filtredPatients = [];
+  while (page < 6) {
+    const Patients = await getPatients(page);
+    Patients.forEach((patient) => {
+      const VerifyOK = verifySearch(search, patient);
+      if (VerifyOK) {
+        filtredPatients.push(patient);
+      }
+    });
+    page++;
+  }
+  return filtredPatients;
 }

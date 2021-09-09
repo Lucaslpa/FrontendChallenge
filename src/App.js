@@ -3,17 +3,17 @@ import Search from "./Components/Search";
 import List from "./Components/List";
 import { useEffect } from "react";
 import { usePatientsContext } from "./Contexts/Patients";
-import { usePatientModalContext } from './Contexts/PatientModal'
+import { usePatientModalContext } from "./Contexts/PatientModal";
 import { buildActions } from "./Contexts/Patients/BuildActions";
 import Loading from "./Components/Loading";
-import Modal from './Components/Modal'
+import Modal from "./Components/Modal";
 
 import { getPatients } from "./api/Patients";
 
 function App() {
   const [PatientsState, dispatch] = usePatientsContext();
   const PatientsActions = buildActions(dispatch);
-  const [PatientState] = usePatientModalContext()
+  const [PatientState] = usePatientModalContext();
 
   async function handleSetPatients() {
     const currentPageToGET = PatientsState.page;
@@ -27,7 +27,10 @@ function App() {
     const currentPageToGET = oldPage + 1;
     PatientsActions.SET_LOADING_GM();
     const PatientsFromApi = await getPatients(currentPageToGET);
-    PatientsActions.SET_PATIENTS(PatientsFromApi);
+    PatientsActions.SET_PATIENTS([
+      ...PatientsState.patients,
+      ...PatientsFromApi,
+    ]);
     PatientsActions.SET_LOADING_GM();
     PatientsActions.SET_PAGE(currentPageToGET);
   }
@@ -35,10 +38,11 @@ function App() {
   useEffect(() => {
     handleSetPatients();
   }, []);
+  useEffect(() => {}, [PatientsState.patients]);
 
   return (
     <div className="w-full h-screen overflow-y-scroll">
-      {PatientState.modalIsOpen && <Modal/>}
+      {PatientState.modalIsOpen && <Modal />}
       <header>
         <Menu />
       </header>
