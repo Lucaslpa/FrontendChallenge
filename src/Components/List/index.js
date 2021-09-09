@@ -20,7 +20,7 @@ function List({ patients }) {
           {patients &&
             patients.length > 0 &&
             patients.map((patient) => (
-              <tr key={patient.email}>
+              <tr key={patient.login.uuid}>
                 <td className="text-4xl text-center p-5 border-l-1  border-r-1 border-b-1 border-gray-300">{`${patient.name.first} ${patient.name.last}`}</td>
                 <td className="text-4xl text-center p-5 border-l-1  border-r-1 border-b-1 border-gray-300">
                   {patient.gender}
@@ -40,8 +40,8 @@ function List({ patients }) {
             ))}
         </tbody>
       </table>
-      {!patients || !patients.length ? (
-        <div className="justify-center p-5">
+      {!patients || !patients.length > 0 ? (
+        <div className=" p-5">
           <strong className="text-4xl">no patients</strong>
         </div>
       ) : null}

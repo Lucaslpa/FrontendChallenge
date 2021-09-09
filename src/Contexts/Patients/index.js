@@ -5,7 +5,9 @@ import { reducer } from "./reducer";
 
 const initialState = {
   patients: [],
-  loading: false,
+  loading: true,
+  loadingGM: false,
+  page: 1,
 };
 const Context = createContext([]);
 

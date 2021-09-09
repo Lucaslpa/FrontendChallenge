@@ -1,31 +1,36 @@
 import Menu from "./Components/Menu";
 import Search from "./Components/Search";
 import List from "./Components/List";
-import Modal from "./Components/Modal";
-import Loading from "./Components/Loading";
-import { patient } from "./patient";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { usePatientsContext } from "./Contexts/Patients";
 import { buildActions } from "./Contexts/Patients/BuildActions";
+import Loading from "./Components/Loading";
+
+import { getPatients } from "./api/Patients";
 
 function App() {
-  const [openModal, setOpenModal] = useState(false);
+  const [PatientsState, dispatch] = usePatientsContext();
+  const PatientsActions = buildActions(dispatch);
 
-  function handleOpenModal() {
-    setOpenModal(!openModal);
+  async function handleSetPatients() {
+    const currentPageToGET = PatientsState.page;
+    const PatientsFromApi = await getPatients(currentPageToGET);
+    PatientsActions.SET_PATIENTS(PatientsFromApi);
+    PatientsActions.SET_LOADING();
   }
-  const [patientsState, dispatch] = usePatientsContext();
-  const patientsActions = buildActions(dispatch);
+
+  async function handleGetMorePatients() {
+    const currentPageToGET = PatientsState.page + 1;
+    PatientsActions.SET_LOADING_GM();
+    const PatientsFromApi = await getPatients(currentPageToGET);
+    PatientsActions.SET_PATIENTS(PatientsFromApi);
+    PatientsActions.SET_LOADING_GM();
+    PatientsActions.SET_PAGE(currentPageToGET);
+  }
 
   useEffect(() => {
-    patientsActions.SET_PATIENTS([patient, patient]);
-    patientsActions.SET_LOADING();
-    patientsActions.SET_LOADING();
+    handleSetPatients();
   }, []);
-
-  useEffect(() => {
-    console.log(patientsState);
-  }, [patientsState]);
 
   return (
     <div className="w-full h-full relative">
@@ -42,18 +47,19 @@ function App() {
             lacus, malesuada ac neque in, scelerisque lacinia nibh.
           </p>
           <Search />
-          {patientsState.loading ? (
+
+          {PatientsState.loading ? (
             <Loading />
           ) : (
-            <List patientsState={patientsState.patients} />
+            <List patients={PatientsState.patients} />
           )}
+
           <div className="w-full py-20 flex justify-center p-5">
-            {openModal && <Modal />}
             <button
-              onClick={() => handleOpenModal()}
+              onClick={() => handleGetMorePatients()}
               className="text-4xl bg-pink-600 p-8 rounded-1xl text-white hover:bg-pink-500"
             >
-              More Posts
+              {PatientsState.loadingGM ? "loading..." : "More Patients"}
             </button>
           </div>
         </div>
