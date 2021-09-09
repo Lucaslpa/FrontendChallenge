@@ -1,13 +1,17 @@
 import Menu from "./Components/Menu";
 import Search from "./Components/Search";
+import List from "./Components/List";
+import { patient } from "./patient";
 
 function App() {
   return (
     <div className="w-screen h-screen">
-      <Menu />
+      <header>
+        <Menu />
+      </header>
 
-      <div className=" w-full  ">
-        <div className="max-w-6xl w-full mx-auto">
+      <main className=" w-full mt-20 ">
+        <div className="max-w-6xl px-7  md:px-0 w-full mx-auto">
           <p className="text-5xl">
             {" "}
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nibh
@@ -15,8 +19,9 @@ function App() {
             lacus, malesuada ac neque in, scelerisque lacinia nibh.
           </p>
           <Search />
+          <List patients={[patient, patient, patient, patient, patient]} />
         </div>
-      </div>
+      </main>
     </div>
   );
 }

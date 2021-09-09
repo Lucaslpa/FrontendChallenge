@@ -7,6 +7,9 @@ module.exports = {
         2: "2rem",
         4: "4rem",
       },
+      minWidth: {
+        500: "50rem"
+      },
       fontSize: {
         init: "62.5%",
       },
