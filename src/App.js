@@ -38,7 +38,6 @@ function App() {
   useEffect(() => {
     handleSetPatients();
   }, []);
-  useEffect(() => {}, [PatientsState.patients]);
 
   return (
     <div className="w-full h-screen overflow-y-scroll">

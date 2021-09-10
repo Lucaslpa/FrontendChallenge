@@ -6,6 +6,16 @@ import { useEffect } from "react";
 import { usePatientModalContext } from "../../Contexts/PatientModal";
 import { buildActions } from "../../Contexts/PatientModal/BuildActions";
 
+const TD = ({ children }) => (
+  <td className="text-4xl text-center p-5 border-l-1  border-r-1 border-b-1 border-gray-300">
+    {children}
+  </td>
+);
+
+TD.propTypes = {
+  children: PropTypes.any,
+};
+
 function List({ patients }) {
   const ths = ["Name", "Gender", "Birth", "Actions"];
   const location = useLocation();
@@ -19,9 +29,7 @@ function List({ patients }) {
   }
 
   useEffect(() => {
-    const PatientUUID = location.pathname.match(
-      /\b(?!\bPatient\b)[^/].*\b/g
-    );
+    const PatientUUID = location.pathname.match(/\b(?!\bPatient\b)[^/].*\b/g);
     if (PatientUUID) {
       handleOpenModal(PatientUUID[0]);
     }
@@ -44,14 +52,10 @@ function List({ patients }) {
             patients.length > 0 &&
             patients.map((patient) => (
               <tr key={patient.login.uuid}>
-                <td className="text-4xl text-center p-5 border-l-1  border-r-1 border-b-1 border-gray-300">{`${patient.name.first} ${patient.name.last}`}</td>
-                <td className="text-4xl text-center p-5 border-l-1  border-r-1 border-b-1 border-gray-300">
-                  {patient.gender}
-                </td>
-                <td className="text-4xl text-center p-5 border-l-1 border-r-1 border-b-1 border-gray-300">
-                  {ConvertDate(patient.dob.date)}
-                </td>
-                <td className="text-4xl text-center p-5 border-l-1  border-r-1 border-b-1 border-gray-300">
+                <TD>{`${patient.name.first} ${patient.name.last}`}</TD>
+                <TD>{patient.gender}</TD>
+                <TD>{ConvertDate(patient.dob.date)}</TD>
+                <TD>
                   <Link
                     to={`/Patient/${patient.login.uuid}`}
                     className="text-4xl bg-pink-600 p-2 px-5 h-auto rounded-1xl text-white hover:bg-pink-500"
@@ -59,7 +63,7 @@ function List({ patients }) {
                   >
                     View
                   </Link>
-                </td>
+                </TD>
               </tr>
             ))}
         </tbody>

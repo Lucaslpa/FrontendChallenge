@@ -35,7 +35,7 @@ function Search() {
           className=" outline-none w-full p-3 text-4xl"
         />
         <button
-          className="p-5 bg-pink-600 border-0"
+          className="p-5 bg-pink-600 hover:bg-pink-500 border-0"
           onClick={(e) => {
             e.preventDefault();
             handleSearch(searchInput.current.value);

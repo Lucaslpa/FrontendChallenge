@@ -6,7 +6,7 @@ import Loading from "../Loading";
 import { Link } from "react-router-dom";
 
 const Text = ({ children, title }) => (
-  <div className="md:text-3xl text-3xl    w-auto md:p-3   p-1 m-5">
+  <div className="md:text-3xl text-3xl    w-auto md:p-1  p-1 m-3">
     <h4 className="md:text-3xl text-3xl  text-pink-600">{title}</h4>
     {children}
   </div>
@@ -20,7 +20,6 @@ Text.propTypes = {
 function Modal() {
   const [PatientState, dispatch] = usePatientModalContext();
   const PatientActions = buildActions(dispatch);
-
   const patient = PatientState.patient;
 
   if (
@@ -92,12 +91,11 @@ function Modal() {
             <h2 className="md:text-4xl text-4xl text-3xl w-full text-center my-5 md:my-7">
               {`${patient.name.first} ${patient.name.last}`}
             </h2>
-            <div className="flex flex-wrap h-32 overflow-y-scroll md:overflow-hidden md:h-auto">
+            <div className="flex flex-wrap h-40 overflow-y-scroll md:overflow-hidden md:h-auto">
               <Text title="id">{patient.id.value}</Text>
               <Text title="Nationality">{patient.location.country}</Text>
               <Text title="Gender">{patient.gender}</Text>
               <Text title="Email">{patient.email}</Text>
-
               <Text title="Birth">{ConvertDate(patient.dob.date)}</Text>
               <Text title="Phone">{patient.phone}</Text>
             </div>
@@ -109,7 +107,6 @@ function Modal() {
               Country: ${patient.location.country}. 
               Postcode: ${patient.location.postcode}.`}
             </Text>
-
             <div className="md:text-4xl text-3xl w-full md:p-2 md:m-1  p-2 my-7 flex flex-col">
               <input
                 readOnly
@@ -119,7 +116,7 @@ function Modal() {
               />
               <button
                 onClick={() => copyToClipboard()}
-                className="text-4xl bg-pink-600 p-3 rounded-1xl text-white hover:bg-pink-500"
+                className="text-4xl bg-pink-600 p-3 rounded-1xl text-white hidden md:block hover:bg-pink-500"
               >
                 Copy Link
               </button>
