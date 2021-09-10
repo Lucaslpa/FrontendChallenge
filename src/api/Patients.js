@@ -13,22 +13,22 @@ export async function getPatient(PatientUUID) {
   let Patient = null;
   while (!Patient && page < 6) {
     const Patients = await getPatients(page);
-    const filtredPatient = Patients.filter(
+    const filteredPatient = Patients.filter(
       (patient) => patient.login.uuid === PatientUUID
     );
-    if (filtredPatient.length === 0) {
+    if (filteredPatient.length === 0) {
       page++;
     }
-    Patient = filtredPatient[0];
+    Patient = filteredPatient[0];
   }
   return Patient;
 }
 export async function getPatientByGender(Patients) {
-  const filtredPatients = Patients.filter(
+  const filteredPatients = Patients.filter(
     (patient) => patient.gender === gender
   );
 
-  return filtredPatients;
+  return filteredPatients;
 }
 
 function verifySearch(search, patient) {
@@ -46,16 +46,16 @@ function verifySearch(search, patient) {
 
 export async function getPatientByNationalityOrName(search) {
   let page = 1;
-  const filtredPatients = [];
+  const filteredPatients = [];
   while (page < 6) {
     const Patients = await getPatients(page);
     Patients.forEach((patient) => {
       const VerifyOK = verifySearch(search, patient);
       if (VerifyOK) {
-        filtredPatients.push(patient);
+        filteredPatients.push(patient);
       }
     });
     page++;
   }
-  return filtredPatients;
+  return filteredPatients;
 }
