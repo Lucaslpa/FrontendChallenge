@@ -77,7 +77,7 @@ function Modal() {
         <div className="w-full md:w-full h-auto p-10 pt-10 flex flex-col relative items-center max-w-500 bg-white">
           <img
             alt="Patient"
-            className="rounded-full  transform absolute w-full max-w-10 -translate-y-40 "
+            className="rounded-full  transform absolute w-full max-w-10 -translate-y-36 "
             src={patient.picture.large}
           />
           <Link
