@@ -1,4 +1,4 @@
-import { actionTypes } from "./actionTypes";
+import { actionTypes } from "./Actions";
 
 export const buildActions = (dispatch) => {
   return {

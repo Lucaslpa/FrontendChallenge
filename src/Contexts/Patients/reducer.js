@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { actionTypes } from "./actionTypes";
+import { actionTypes } from "./Actions";
 
 export const reducer = (state, action) => {
   switch (action.type) {
