@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
+
 import "./index.css";
 import App from "./App";
 import { PatientsContext } from "./Contexts/Patients";
@@ -13,7 +14,7 @@ const Routes = () => (
       <Route exact path="/">
         <App />
       </Route>
-      <Route exact path="/patient/:uuid">
+      <Route path="/patient/:uuid">
         <App />
       </Route>
     </Switch>

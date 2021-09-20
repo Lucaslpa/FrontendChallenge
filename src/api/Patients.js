@@ -33,11 +33,15 @@ export async function getPatientByGender(Patients) {
 
 function verifySearch(search, patient) {
   const searchToLowerCase = search.toLowerCase();
-  const verifyNationality =
-    patient.location.country.toLowerCase() === searchToLowerCase;
-  const verifyFirstName =
-    patient.name.first.toLowerCase() === searchToLowerCase;
-  const verifyLastName = patient.name.last.toLowerCase() === searchToLowerCase;
+  const verifyNationality = patient.location.country
+    .toLowerCase()
+    .includes(searchToLowerCase);
+  const verifyFirstName = patient.name.first
+    .toLowerCase()
+    .includes(searchToLowerCase);
+  const verifyLastName = patient.name.last
+    .toLowerCase()
+    .includes(searchToLowerCase);
 
   if (verifyFirstName || verifyLastName || verifyNationality) {
     return true;
