@@ -1,5 +1,5 @@
 import { ConvertDate } from "../../utils/ConvertDate";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getPatient } from "../../api/Patients";
 import PropTypes from "prop-types";
 import { useEffect } from "react";
@@ -18,7 +18,8 @@ TD.propTypes = {
 
 function List({ patients }) {
   const ths = ["Name", "Gender", "Birth", "Actions"];
-  const location = useLocation();
+  const { uuid } = useParams();
+
   const [, dispatch] = usePatientModalContext();
   const PatientActions = buildActions(dispatch);
 
@@ -29,9 +30,8 @@ function List({ patients }) {
   }
 
   useEffect(() => {
-    const PatientUUID = location.pathname.match(/\b(?!\bPatient\b)[^/].*\b/g);
-    if (PatientUUID) {
-      handleOpenModal(PatientUUID[0]);
+    if (uuid) {
+      handleOpenModal(uuid);
     }
   }, []);
 
@@ -57,7 +57,7 @@ function List({ patients }) {
                 <TD>{ConvertDate(patient.dob.date)}</TD>
                 <TD>
                   <Link
-                    to={`/Patient/${patient.login.uuid}`}
+                    to={`/patient/${patient.login.uuid}`}
                     className="text-4xl bg-pink-600 p-2 px-5 h-auto rounded-1xl text-white hover:bg-pink-500"
                     onClick={() => handleOpenModal(patient.login.uuid)}
                   >
