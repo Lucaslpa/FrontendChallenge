@@ -10,7 +10,7 @@ Projeto que lista paciêntes vindos de uma API.
 - tailwind-css 
 
 ## Como instalar 
-1 - É necessário que possua um gerenciador de pacotes instalado em sua máquina, tais como node ou yarn. 
+1 - É necessário que possua um gerenciador de pacotes instalado em sua máquina, tais como npm ou yarn. 
 
 2 - Com o gerenciador de pacotes instalado, entre na pa pasta do projeto através do terminal e rode o comando "npm i" ou "yarn add". Isso fará com que todas a dependências sejam instaladas.
 
