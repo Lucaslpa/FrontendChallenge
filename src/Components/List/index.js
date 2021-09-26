@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { useEffect } from "react";
 import { usePatientModalContext } from "../../Contexts/PatientModal";
 import { buildActions } from "../../Contexts/PatientModal/BuildActions";
+import { act } from "react-dom/test-utils";
 
 const TD = ({ children }) => (
   <td className="text-4xl text-center p-5 border-l-1  border-r-1 border-b-1 border-gray-300">
@@ -25,8 +26,10 @@ function List({ patients }) {
 
   async function handleOpenModal(uuid) {
     const patient = await getPatient(uuid);
-    PatientActions.SET_PATIENT(patient);
-    PatientActions.SET_OPEN_MODAL();
+    act(() => {
+      PatientActions.SET_PATIENT(patient);
+      PatientActions.SET_OPEN_MODAL();
+    });
   }
 
   useEffect(() => {
@@ -78,7 +81,7 @@ function List({ patients }) {
 }
 
 List.propTypes = {
-  patients: PropTypes.array,
+  patients: PropTypes.any,
 };
 
 export default List;

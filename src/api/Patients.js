@@ -9,6 +9,7 @@ export async function getPatients(page) {
 }
 
 export async function getPatient(PatientUUID) {
+  console.log('calling')
   let page = 1;
   let Patient = null;
   while (!Patient && page < 6) {
