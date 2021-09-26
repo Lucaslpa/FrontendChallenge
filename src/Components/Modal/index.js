@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const Text = ({ children, title }) => (
   <div className="md:text-3xl text-3xl    w-auto md:p-1  p-1 m-3">
     <span className="md:text-3xl text-3xl  text-pink-600">{title}</span>
-    {children}
+    : {children}
   </div>
 );
 

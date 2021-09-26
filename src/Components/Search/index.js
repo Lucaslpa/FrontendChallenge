@@ -1,29 +1,13 @@
 import SearchSVG from "../../assets/search.svg";
-import { getPatientByNationalityOrName, getPatients } from "../../api/Patients";
 import { usePatientsContext } from "../../Contexts/Patients";
 import { buildActions } from "../../Contexts/Patients/BuildActions";
 import { useRef } from "react";
+import { handleSearch } from "../../utils/handleSearch";
 
 function Search() {
   const [, dispatch] = usePatientsContext();
   const actions = buildActions(dispatch);
   const searchInput = useRef();
-
-  async function handleSearch(search) {
-    if (search) {
-      try {
-        actions.SET_LOADING();
-        const filterPatients = await getPatientByNationalityOrName(search);
-        actions.SET_PATIENTS(filterPatients);
-        actions.SET_LOADING();
-      } catch (e) {}
-    } else {
-      actions.SET_LOADING();
-      const patients = await getPatients(1);
-      actions.SET_PATIENTS(patients);
-      actions.SET_LOADING();
-    }
-  }
 
   return (
     <div className="w-full my-16 bg-white ">
@@ -32,20 +16,23 @@ function Search() {
           ref={searchInput}
           type="search"
           placeholder="Searching"
+          aria-label='Search box'
           className=" outline-none w-full p-3 text-4xl"
         />
         <button
           className="p-5 bg-pink-600 hover:bg-pink-500 border-0"
+          aria-label='Search button'
+          type='submit'
           onClick={(e) => {
             e.preventDefault();
-            handleSearch(searchInput.current.value);
+            handleSearch(searchInput.current.value, actions);
           }}
         >
           <img
             alt="Search"
             className="w-full max-w-2 cursor-pointer "
             src={SearchSVG}
-            onClick={() => handleSearch(searchInput.current.value)}
+            onClick={() => handleSearch(searchInput.current.value, actions)}
           />
         </button>
       </form>
