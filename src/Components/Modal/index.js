@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const Text = ({ children, title }) => (
   <div className="md:text-3xl text-3xl    w-auto md:p-1  p-1 m-3">
-    <h4 className="md:text-3xl text-3xl  text-pink-600">{title}</h4>
+    <span className="md:text-3xl text-3xl  text-pink-600">{title}</span>
     {children}
   </div>
 );
@@ -82,7 +82,10 @@ function Modal() {
           />
           <Link
             to="/"
-            onClick={() => PatientActions.SET_OPEN_MODAL()}
+            onClick={() => {
+              console.log("clicked");
+              PatientActions.SET_OPEN_MODAL();
+            }}
             className="transform right-5 -top-5  p-5 absolute text-white  bg-pink-600 text-3xl hover:bg-pink-500"
           >
             X
@@ -111,6 +114,7 @@ function Modal() {
               <input
                 readOnly
                 id="inputToCopy"
+                aria-label="Share link"
                 defaultValue={window.location.href}
                 className="border-1 p-3 outline-none md:w-full"
               />
